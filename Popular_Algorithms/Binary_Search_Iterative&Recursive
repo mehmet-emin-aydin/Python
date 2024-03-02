@@ -16,10 +16,25 @@ def Iterative_Binary_Search(target_number, list_of_number = []):
     else:
         return -1
 
+#Recursive Binary Search Function
+def Recursive_Binary_Search(target_number, start_point, end_point, list_of_number = []):
+    if start_point <= end_point:
+        mid_point = (start_point+end_point)//2
+        if target_number == list_of_number[mid_point]:
+            return mid_point
+        elif target_number < list_of_number[mid_point]:
+            return Recursive_Binary_Search(target_number, start_point, mid_point-1, list_of_number)
+        else:
+            return Recursive_Binary_Search(target_number, mid_point+1, end_point, list_of_number)
+    else:
+        return -1
+
+
 length_of_list = int(input("Enter the size of the list:"))
 target_list = sorted([int(input(f'Enter the {i+1}. element of list:')) for i in range(length_of_list)])
 target_number = int(input("Enter the target number:"))
 output = Iterative_Binary_Search(target_number, target_list)
+#output = Recursive_Binary_Search(target_number, 0, len(target_list)-1, target_list)
 if output == -1:
     print("Element is not present in array")
 else:
