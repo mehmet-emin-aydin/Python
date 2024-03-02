@@ -1,0 +1,26 @@
+#Iterative Binary Search Function
+def Iterative_Binary_Search(target_number, list_of_number = []):
+    found = False
+    start_point = 0
+    end_point = len(list_of_number)-1
+    while start_point <= end_point and not found:
+        mid_point = (start_point+end_point)//2
+        if target_number == list_of_number[mid_point]:
+            found = True
+        elif target_number < list_of_number[mid_point]:
+            end_point = mid_point-1
+        else:
+            start_point = mid_point+1
+    if found:
+        return mid_point
+    else:
+        return -1
+
+length_of_list = int(input("Enter the size of the list:"))
+target_list = sorted([int(input(f'Enter the {i+1}. element of list:')) for i in range(length_of_list)])
+target_number = int(input("Enter the target number:"))
+output = Iterative_Binary_Search(target_number, target_list)
+if output == -1:
+    print("Element is not present in array")
+else:
+    print(f'Element is present at index {output}!')
