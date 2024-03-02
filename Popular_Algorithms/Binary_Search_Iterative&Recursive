@@ -1,40 +1,89 @@
-#Iterative Binary Search Function
-def Iterative_Binary_Search(target_number, list_of_number = []):
+# Iterative Binary Search Function
+def Iterative_Binary_Search(target_number, list_of_numbers):
+    """
+    Implements the iterative approach of the binary search algorithm to find the index
+    of a target number within a sorted list.
+
+    Args:
+        target_number: The number to search for.
+        list_of_numbers: The sorted list of numbers to search in.
+
+    Returns:
+        The index of the target number in the list if found, otherwise -1.
+    """
+
     found = False
     start_point = 0
-    end_point = len(list_of_number)-1
+    end_point = len(list_of_numbers) - 1
+
+    # Loop until the target is found or the search space is exhausted
     while start_point <= end_point and not found:
-        mid_point = (start_point+end_point)//2
-        if target_number == list_of_number[mid_point]:
+        mid_point = (start_point + end_point) // 2
+
+        # Check if the target is found at the middle element
+        if target_number == list_of_numbers[mid_point]:
             found = True
-        elif target_number < list_of_number[mid_point]:
-            end_point = mid_point-1
+
+        # If the target is less than the middle element, search in the left half
+        elif target_number < list_of_numbers[mid_point]:
+            end_point = mid_point - 1
+
+        # Otherwise, search in the right half
         else:
-            start_point = mid_point+1
+            start_point = mid_point + 1
+
+    # Return the index of the target or -1 if not found
     if found:
         return mid_point
     else:
         return -1
 
-#Recursive Binary Search Function
-def Recursive_Binary_Search(target_number, start_point, end_point, list_of_number = []):
+
+# Recursive Binary Search Function
+def Recursive_Binary_Search(target_number, start_point, end_point, list_of_numbers):
+    """
+    Implements the recursive approach of the binary search algorithm to find the index
+    of a target number within a sorted list.
+
+    Args:
+        target_number: The number to search for.
+        start_point: The starting index of the search space.
+        end_point: The ending index of the search space.
+        list_of_numbers: The sorted list of numbers to search in.
+
+    Returns:
+        The index of the target number in the list if found, otherwise -1.
+    """
+
     if start_point <= end_point:
-        mid_point = (start_point+end_point)//2
-        if target_number == list_of_number[mid_point]:
+        mid_point = (start_point + end_point) // 2
+
+        # Check if the target is found at the middle element
+        if target_number == list_of_numbers[mid_point]:
             return mid_point
-        elif target_number < list_of_number[mid_point]:
-            return Recursive_Binary_Search(target_number, start_point, mid_point-1, list_of_number)
+
+        # If the target is less than the middle element, search in the left half
+        elif target_number < list_of_numbers[mid_point]:
+            return Recursive_Binary_Search(target_number, start_point, mid_point - 1, list_of_numbers)
+
+        # Otherwise, search in the right half
         else:
-            return Recursive_Binary_Search(target_number, mid_point+1, end_point, list_of_number)
-    else:
+            return Recursive_Binary_Search(target_number, mid_point + 1, end_point, list_of_numbers)
+
+    else:  # Base case: search space exhausted
         return -1
 
 
+# Get user input and create the sorted list
 length_of_list = int(input("Enter the size of the list:"))
 target_list = sorted([int(input(f'Enter the {i+1}. element of list:')) for i in range(length_of_list)])
 target_number = int(input("Enter the target number:"))
-output = Iterative_Binary_Search(target_number, target_list)
-#output = Recursive_Binary_Search(target_number, 0, len(target_list)-1, target_list)
+
+# Choose and call the desired binary search function
+# output = Iterative_Binary_Search(target_number, target_list)
+output = Recursive_Binary_Search(target_number, 0, len(target_list) - 1, target_list)
+
+# Print the result
 if output == -1:
     print("Element is not present in array")
 else:
